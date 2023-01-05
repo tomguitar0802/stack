@@ -1,4 +1,10 @@
-numpy
-pandas
-matplotlib.pyplot
 streamlit
+pandas
+matplotlib
+scikit-learn
+sklearn
+xlrd
+openpyxl
+japanize_matplotlib
+seaborn
+numpy
