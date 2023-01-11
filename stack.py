@@ -8,6 +8,7 @@ Path=st.sidebar.file_uploader('Excel')
 if Path is not None:
     Data=pd.ExcelFile(Path)
     Sheet_names=Data.sheet_names
+    x_label=st.sidebar.text_input("x_label","C")
     Drop=st.sidebar.checkbox("Drop NH4",value=False)
 
     #フルスペクトル
@@ -20,6 +21,7 @@ if Path is not None:
 
     df_full=df_full.groupby("C").sum()
     ax=df_full.plot.bar(legend=False)
+    ax.set_xlabel(x_label)
     ax.set_ylabel("Absolute Intensity")
     st.pyplot()
 
@@ -35,6 +37,7 @@ if Path is not None:
     
     df=df_cid.mul(df_full["rate"],axis=0)
     ax=df.plot.bar(stacked=True)
+    ax.set_xlabel(x_label)
     ax.set_ylabel("Absolute Intensity")
     st.pyplot()
     
@@ -46,3 +49,10 @@ if Path is not None:
     #クリップボードにコピー
     if st.button("copy"):
         df.to_clipboard()
+    
+    #規格化したグラフの表示
+    fig,ax=plt.subplots()
+    ax=df.plot.bar(stacked=True)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel("Normalized Intensity (total=1)")
+    st.pyplot() 
